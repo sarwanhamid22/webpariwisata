@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: webpariwisata
+    runtime: php
+    buildCommand: |
+      composer install --no-interaction --prefer-dist --optimize-autoloader
+      php artisan config:cache
+      php artisan migrate --force
+      php artisan db:seed --force
+    startCommand: php artisan serve --host 0.0.0.0 --port 10000
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
